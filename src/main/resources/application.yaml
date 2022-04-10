@@ -2,19 +2,21 @@ spring:
     cloud:
         azure:
             eventhubs:
-                connection-string: [eventhub-namespace-connection-string]
+                # [eventhub-namespace-connection-string]
+                connection-string: Endpoint=sb://goves-event-hub-namespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ii9QF36i9di32wyUqAmPWTFpzj+KPbWP3tQadGQbQ78=
                 processor:
                     checkpoint-store:
-                        account-name: wingtiptoysstorage
-                        account-key: [checkpoint-access-key]
-                        container-name: wingtiptoyscontainer
+                        account-name: storagegoves
+                        # [checkpoint-access-key]
+                        account-key: /ufyvwYLSJQa5IHYPvs/Fz+w6G4bFNcsImSVE285HGBCvbOOdvnwuKKOZIgI2mpXfWxKsklYIYojm7pzNmdVPQ==
+                        container-name: messages
         stream:
             bindings:
                 consume-in-0:
-                    destination: wingtiptoyshub
+                    destination: goves-event-hub-name
                     group: $Default
                 supply-out-0:
-                    destination: wingtiptoyshub
+                    destination: goves-event-hub-name
 
             eventhubs:
                 bindings:
