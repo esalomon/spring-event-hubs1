@@ -1,0 +1,29 @@
+spring:
+    cloud:
+        azure:
+            eventhubs:
+                connection-string: [eventhub-namespace-connection-string]
+                processor:
+                    checkpoint-store:
+                        account-name: wingtiptoysstorage
+                        account-key: [checkpoint-access-key]
+                        container-name: wingtiptoyscontainer
+        stream:
+            bindings:
+                consume-in-0:
+                    destination: wingtiptoyshub
+                    group: $Default
+                supply-out-0:
+                    destination: wingtiptoyshub
+
+            eventhubs:
+                bindings:
+                    consume-in-0:
+                        consumer:
+                            checkpoint:
+                                mode: MANUAL
+            function:
+                definition: consume;supply;
+            poller:
+                initial-delay: 0
+                fixed-delay: 1000
